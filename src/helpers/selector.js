@@ -1,14 +1,19 @@
 
-// console.log("state.appointments ➤", Object.keys(state.appointments));
-// console.log("state ➤", state);
 export const getAppointmentsForDay = (state, day) => {
   const appointmentList = state.days.find(d => d.name === day);
-  // console.log("appointmentList ➤", appointmentList);
   if (!appointmentList) return [];
-  console.log("Object.values(state.appointments) ➤", Object.values(state.appointments));
-  const filteredAppointments = Object.values(state.appointments).filter(a => 
-    appointmentList.appointments.includes(a.id)
+
+  const filteredAppointments = Object.values(state.appointments).filter(appointment => 
+    appointmentList.appointments.includes(appointment.id)
   );
-  // console.log("filteredAppointments ➤", filteredAppointments);
   return filteredAppointments;
+};
+
+export const getInterview = (state, interview) => {
+  if (!interview) return null;
+
+  const interviewer = state.interviewers[interview.interviewer];
+  if (!interviewer) return null;
+
+  return { ...interview, interviewer};
 };
