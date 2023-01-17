@@ -17,3 +17,12 @@ export const getInterview = (state, interview) => {
 
   return { ...interview, interviewer};
 };
+
+export const getInterviewersForDay = (state, day) => {
+  const appointmentList = state.days.find(d => d.name === day);
+  if (!appointmentList) return [];
+  const thing = Object.values(state.interviewers).filter(e => 
+    appointmentList.appointments.includes(e.id)
+  );
+  return thing;
+};

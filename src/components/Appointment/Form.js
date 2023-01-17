@@ -5,6 +5,8 @@ import React, { useState } from "react";
 
 export default function Form(props) {
   const [student, setStudent] = useState(props.student || "");
+  console.log("props ➤", props);
+  console.log("props.interviewer ➤", props.interviewer);
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
   const Cancel =() =>{
     props.onCancel()
