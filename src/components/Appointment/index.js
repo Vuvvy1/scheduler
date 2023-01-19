@@ -57,7 +57,7 @@ export default function Appointment(props) {
 
   // console.log("props.interview ➤", props.interview);
   return (
-    <article className="appointment">
+    <article className="appointment" data-testid="appointment">
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
       {mode === SAVING && <Status message="Saving" />}
       {mode === DELETING && <Status message="Deleting" />}
@@ -82,7 +82,6 @@ export default function Appointment(props) {
       )}
       {mode === EDIT && (
         <Form
-
           student={props.interview.student}
           interviewer={props.interview && props.interview.interviewer.id}
           interviewers={props.interviewers}

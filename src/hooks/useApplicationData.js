@@ -22,23 +22,23 @@ useEffect(() => {
   });
 }, []);
 function bookInterview(id, interview) {
-  console.log("id, interview ➤", id, interview);
+  // console.log("id, interview ➤", id, interview);
   const appointment = {...state.appointments[id], interview: { ...interview }};
   const appointments = {...state.appointments, [id]: appointment};
   const days = getRemainingSpotsAvailable(appointments);
-  console.log("days ➤", days);
-  console.log("{...state, appointments} ➤", {...state, appointments});
+  // console.log("days ➤", days);
+  // console.log("{...state, appointments} ➤", {...state, appointments});
   return axios.put(`/api/appointments/${id}`, { interview })
-  .then(setState({...state, appointments, days}));
+  .then(() => {setState({...state, appointments, days})});
 }
 
 function cancelInterview(id) {
   const appointment = {...state.appointments[id], interview: null};
   const appointments = {...state.appointments, [id]: appointment};
   const days = getRemainingSpotsAvailable(appointments);
-  console.log("days ➤", days);
+  // console.log("days ➤", days);
   return axios.delete(`/api/appointments/${id}`)
-  .then(setState({...state, appointments, days}));
+  .then(() => {setState({...state, appointments, days})});
 };
 
 // function getRemainingSpotsAvailable(appointments) {
@@ -58,7 +58,7 @@ function cancelInterview(id) {
 const getRemainingSpotsAvailable = (appointments) => {
   const spots = state.days.find(d => d.name === state.day)
         .appointments.filter(id => !appointments[id].interview).length;
-console.log("spots ➤", spots);
+// console.log("spots ➤", spots);
   return state.days.map(day => 
     state.day === day.name ? { ...day, spots } : { ...day }
   );
