@@ -7,13 +7,13 @@ This repository contains implementation for the client application using React v
 ## Screenshots
 
 ### Main Page
-!["Screenshot of Main page"](docs/main.png)
+!["Screenshot of Main page"](https://github.com/Vuvvy1/scheduler/blob/master/docs/main.png?raw=true)
 
 ### Book/Edit Interview
-!["Screenshot for Booking an Interview"](docs/book.png)
+!["Screenshot for Booking an Interview"](https://github.com/Vuvvy1/scheduler/blob/master/docs/book.png?raw=true)
 
 ### Delete Interview
-!["Screenshot for Deleting an Interview"](docs/delete.png)
+!["Screenshot for Deleting an Interview"](https://github.com/Vuvvy1/scheduler/blob/master/docs/delete.png?raw=true)
 
 ## Dependencies
 
