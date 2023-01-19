@@ -7,7 +7,7 @@ import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "help
 import { useApplicationData } from "hooks/useApplicationData";
 
 
-export default function Application(props) {
+export default function Application() {
   
   const {
     state,
@@ -22,6 +22,7 @@ export default function Application(props) {
   // Iterates state to match appointments objects per day
   const appointmentsForDay = getAppointmentsForDay(state, state.day); 
   // Iterates state to match interviewers objects per day
+  // console.log("state.day ➤", state.day);
   const interviewersForDay = getInterviewersForDay(state, state.day); 
   
   // Mapping appointments array to create an Appointment component per appointment in state

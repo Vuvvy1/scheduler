@@ -14,7 +14,12 @@ const formatSpots = (spots) => {
       'day-list__item--full': props.spots === 0
     });
     return (
-      <li className={textClass} onClick={props.setDay} data-testid="day">
+      <li
+        className={textClass}
+        onClick={props.setDay}
+        data-testid="day"
+        data-cy="day"
+      >
         <h2 className="text--regular">{props.name}</h2>
         <h3 className="text--light">{formatSpots(props.spots)} remaining</h3>
       </li>

@@ -19,10 +19,13 @@ export const getInterview = (state, interview) => {
 };
 
 export const getInterviewersForDay = (state, day) => {
+//  console.log("getInterviewersForDay ➤", day); 
   const appointmentList = state.days.find(d => d.name === day);
   if (!appointmentList) return [];
-  const thing = Object.values(state.interviewers).filter(e => 
-    appointmentList.appointments.includes(e.id)
+  console.log("Object.values(state.interviewers) ➤", Object.values(state.interviewers));
+  const thing = Object.values(state.interviewers).filter((e) =>
+    appointmentList.interviewers.includes(e.id)
   );
+  console.log("thing ➤", thing);
   return thing;
 };
