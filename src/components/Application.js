@@ -1,32 +1,26 @@
 import DayList from "./DayList";
 import "components/Application.scss";
 import Appointment from "components/Appointment";
-import React/*, { useState, useEffect }*/ from "react";
-// import axios from "axios";
-import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "helpers/selector";
+import React from "react";
+import {
+  getAppointmentsForDay,
+  getInterview,
+  getInterviewersForDay,
+} from "helpers/selector";
 import { useApplicationData } from "hooks/useApplicationData";
 
-
 export default function Application() {
-  
-  const {
-    state,
-    setDay,
-    bookInterview,
-    cancelInterview
-  } = useApplicationData();
-  // const setDays = (days) => {setState(prev => ({ ...prev, days }));}
-
-
+  const { state, setDay, bookInterview, cancelInterview } =
+    useApplicationData();
 
   // Iterates state to match appointments objects per day
-  const appointmentsForDay = getAppointmentsForDay(state, state.day); 
+  const appointmentsForDay = getAppointmentsForDay(state, state.day);
+
   // Iterates state to match interviewers objects per day
-  // console.log("state.day ➤", state.day);
-  const interviewersForDay = getInterviewersForDay(state, state.day); 
-  
+  const interviewersForDay = getInterviewersForDay(state, state.day);
+
   // Mapping appointments array to create an Appointment component per appointment in state
-  const appointmentsList = appointmentsForDay.map(appointment => {
+  const appointmentsList = appointmentsForDay.map((appointment) => {
     const interview = getInterview(state, appointment.interview);
 
     return (
@@ -51,11 +45,7 @@ export default function Application() {
         />
         <hr className="sidebar__separator sidebar--centered" />
         <nav className="sidebar__menu">
-          <DayList
-            days={state.days}
-            value={state.day}
-            onChange={setDay}
-          />
+          <DayList days={state.days} value={state.day} onChange={setDay} />
         </nav>
         <img
           className="sidebar__lhl sidebar--centered"
@@ -64,7 +54,7 @@ export default function Application() {
         />
       </section>
       <section className="schedule">
-      {appointmentsList}
+        {appointmentsList}
         <Appointment key="last" time="5pm" />
       </section>
     </main>

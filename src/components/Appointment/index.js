@@ -22,10 +22,12 @@ export const ERROR_SAVE = "ERROR_SAVE";
 export const ERROR_DELETE = "ERROR_DELETE";
 
 export default function Appointment(props) {
+  // if interview prop exists default mode is SHOW, else EMPTY
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   );
 
+  // Create/Edit interview object and transition to status 'SAVING'
   const save = (name, interviewer) => {
     const interview = {
       student: name,
@@ -37,7 +39,7 @@ export default function Appointment(props) {
       .then(() => transition(SHOW))
       .catch((error) => transition(ERROR_SAVE, true));
   };
-
+  //Delete interview object and transition to status 'DELETING'
   const destroy = () => {
     transition(DELETING, true);
     props
@@ -56,10 +58,9 @@ export default function Appointment(props) {
     }
   }, [props.interview, transition, mode]);
 
-
   return (
     <article className="appointment" data-testid="appointment">
-      <Header time={props.time}/>
+      <Header time={props.time} />
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
       {mode === SAVING && <Status message="Saving" />}
       {mode === DELETING && <Status message="Deleting" />}

@@ -15,7 +15,6 @@ import {
   queryByText,
 } from "@testing-library/react";
 import Application from "components/Application";
-import Button from "components/Button";
 
 afterEach(cleanup);
 
@@ -30,7 +29,6 @@ describe("Application", () => {
     expect(getByText("Leopold Silvers")).toBeInTheDocument();
   });
   it("loads data, books an interview and reduces the spots remaining for the first day by 1", async () => {
-    //  const { container } = render(<Application />);
     const { container, debug } = render(<Application />);
     await waitForElement(() => getByText(container, "Archie Cohen"));
     const appointments = getAllByTestId(container, "appointment");
@@ -57,7 +55,7 @@ describe("Application", () => {
     const day = getAllByTestId(container, "day").find((day) =>
       queryByText(day, "Monday")
     );
-    // console.log("day ➤", prettyDOM(day), "--------------------");
+
     const appointment = getAllByTestId(container, "appointment").find(
       (appointment) => queryByText(appointment, "Archie Cohen")
     );
@@ -65,75 +63,66 @@ describe("Application", () => {
     expect(
       getByText(appointment, "Are you sure you would like to delete?")
     ).toBeInTheDocument();
-    // console.log("appointment ➤", prettyDOM(appointment), "----------------------");
     fireEvent.click(getByText(appointment, "Confirm"));
     expect(getByText(appointment, "Deleting")).toBeInTheDocument();
     await waitForElement(() => getByAltText(appointment, "Add"));
-    // console.log("day ➤", prettyDOM(day),"--------------------");
     expect(getByText(day, "2 spots remaining")).toBeInTheDocument();
   });
-    it("shows the save error when failing to save an appointment and goes back to Form on close", async () => {
-      axios.put.mockRejectedValueOnce();
+  it("shows the save error when failing to save an appointment and goes back to Form on close", async () => {
+    axios.put.mockRejectedValueOnce();
 
-      const { container } = render(<Application />);
-      const student = "Archie Cohen";
+    const { container } = render(<Application />);
+    const student = "Archie Cohen";
 
-      await waitForElement(() => getByText(container, "Archie Cohen"));
+    await waitForElement(() => getByText(container, "Archie Cohen"));
 
-      const appointment = getAllByTestId(container, "appointment").find(
-        (appointment) => queryByText(appointment, student)
-      );
+    const appointment = getAllByTestId(container, "appointment").find(
+      (appointment) => queryByText(appointment, student)
+    );
 
-      fireEvent.click(getByAltText(appointment, "Edit"));
-      expect(
-        getByPlaceholderText(appointment, "Enter Student Name")
-      ).toHaveValue(student);
+    fireEvent.click(getByAltText(appointment, "Edit"));
+    expect(getByPlaceholderText(appointment, "Enter Student Name")).toHaveValue(
+      student
+    );
 
-      fireEvent.change(
-        getByPlaceholderText(appointment, "Enter Student Name"),
-        {
-          target: { value: "Lydia Miller-Jones" },
-        }
-      );
-
-      fireEvent.click(getByAltText(appointment, "Tori Malcolm"));
-      fireEvent.click(getByText(appointment, "Save"));
-
-      await waitForElement(() => getByText(container, "Error"));
-      expect(
-        getByText(appointment, /could not save appointment/i)
-      ).toBeInTheDocument();
-      fireEvent.click(getByAltText(appointment, "Close"));
-
-      expect(getByText(appointment, "Cancel")).toBeInTheDocument();
-      expect(getByText(appointment, "Save")).toBeInTheDocument();
+    fireEvent.change(getByPlaceholderText(appointment, "Enter Student Name"), {
+      target: { value: "Lydia Miller-Jones" },
     });
-    it("shows the delete error when failing to delete an appointment and goes back to SHOW on close", async () => {
-      axios.delete.mockRejectedValueOnce();
 
-      const { container } = render(<Application />);
-      const student = "Archie Cohen";
+    fireEvent.click(getByAltText(appointment, "Tori Malcolm"));
+    fireEvent.click(getByText(appointment, "Save"));
 
-      await waitForElement(() => getByText(container, "Archie Cohen"));
+    await waitForElement(() => getByText(container, "Error"));
+    expect(
+      getByText(appointment, /could not save appointment/i)
+    ).toBeInTheDocument();
+    fireEvent.click(getByAltText(appointment, "Close"));
 
-      const appointment = getAllByTestId(container, "appointment").find(
-        (appointment) => queryByText(appointment, student)
-      );
+    expect(getByText(appointment, "Cancel")).toBeInTheDocument();
+    expect(getByText(appointment, "Save")).toBeInTheDocument();
+  });
+  it("shows the delete error when failing to delete an appointment and goes back to SHOW on close", async () => {
+    axios.delete.mockRejectedValueOnce();
 
-      fireEvent.click(getByAltText(appointment, "Delete"));
-      expect(
-        getByText(appointment, /are you sure you would like to delete./i)
-      ).toBeInTheDocument();
+    const { container } = render(<Application />);
+    const student = "Archie Cohen";
 
-      fireEvent.click(getByText(appointment, "Confirm"));
+    await waitForElement(() => getByText(container, "Archie Cohen"));
 
-      await waitForElement(() => getByText(container, "Error"));
-      expect(
-        getByText(appointment, /could not cancel appointment/i)
-      ).toBeInTheDocument();
-      console.log("appointment ➤", prettyDOM(appointment), "----------------------");
-      // fireEvent.click(getByAltText(appointment, "Close"));
+    const appointment = getAllByTestId(container, "appointment").find(
+      (appointment) => queryByText(appointment, student)
+    );
 
-      // expect(getByText(appointment, "Archie Cohen")).toBeInTheDocument();
-    });
+    fireEvent.click(getByAltText(appointment, "Delete"));
+    expect(
+      getByText(appointment, /are you sure you would like to delete./i)
+    ).toBeInTheDocument();
+
+    fireEvent.click(getByText(appointment, "Confirm"));
+
+    await waitForElement(() => getByText(container, "Error"));
+    expect(
+      getByText(appointment, /could not cancel appointment/i)
+    ).toBeInTheDocument();
+  });
 });

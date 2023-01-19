@@ -5,16 +5,16 @@ import classNames from "classnames";
 export default function InterviewerListItem(props) {
   const textClass = classNames("interviewers__item", {
     // "interviewers__item--selected": props.selected,
-    'interviewers__item--selected': props.selected
+    "interviewers__item--selected": props.selected,
   });
   return (
-<li className={textClass} onClick={props.setInterviewer}>
-  <img
-    className="interviewers__item-image"
-    src={props.avatar}
-    alt={props.name}
-  />
-  {props.selected && props.name}
-</li>
-  )
+    <li className={textClass} onClick={props.setInterviewer}>
+      <img
+        className="interviewers__item-image"
+        src={props.avatar}
+        alt={props.name}
+      />
+      {props.selected && props.name}
+    </li>
+  );
 }
